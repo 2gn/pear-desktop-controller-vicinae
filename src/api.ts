@@ -114,7 +114,10 @@ export class PearDesktopClient {
 
   async playSong(videoId: string): Promise<boolean> {
     try {
-      // 1. Add song to queue
+      // 1. Clear current queue to make the new song play immediately as the only item
+      await this.clearQueue();
+
+      // 2. Add song to queue
       const addResponse = await fetch(`${this.baseUrl}/api/v1/queue`, {
         method: 'POST',
         headers: this.getHeaders(),
@@ -122,24 +125,13 @@ export class PearDesktopClient {
       });
 
       if (addResponse.ok || addResponse.status === 204) {
-        // 2. Wait a bit for the server to process the addition
+        // 3. Wait a bit for the server to process the addition
         await new Promise(resolve => setTimeout(resolve, 300));
 
-        // 3. Try to find the song in the queue with retries
-        let index = -1;
-        for (let i = 0; i < 3; i++) {
-          const songs = await this.getQueue();
-          index = songs.findLastIndex(s => s.videoId === videoId);
-          if (index !== -1) break;
-          await new Promise(resolve => setTimeout(resolve, 500));
-        }
-
-        if (index !== -1) {
-          // 4. Set index and play
-          await this.setQueueIndex(index);
-          await this.resume();
-          return true;
-        }
+        // 4. Set index to 0 (since we cleared the queue, it should be the first item)
+        await this.setQueueIndex(0);
+        await this.resume();
+        return true;
       }
     } catch (error) {
       console.error('Play song error:', error);
