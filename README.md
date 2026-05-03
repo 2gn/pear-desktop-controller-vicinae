@@ -12,6 +12,15 @@ To use this extension, you must have:
    - Find **API Server** and toggle it **ON**.
    - (Optional) Ensure the port is set to the default `26538`.
 
+## Installation
+
+Note: This extension is not yet indexed in the Vicinae Store. To use it, you must clone the repository and build it manually:
+
+1. Clone this repository to your local machine.
+2. Install dependencies: `npm install`
+3. Build the extension: `npm run build`
+4. The extension will be built and automatically installed to your local Vicinae extensions directory.
+
 ## Features
 
 ### 🔍 Search & Play
