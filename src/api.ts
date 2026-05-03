@@ -122,12 +122,20 @@ export class PearDesktopClient {
       });
 
       if (addResponse.ok || addResponse.status === 204) {
-        // 2. Get current queue to find the index of the newly added song
-        const songs = await this.getQueue();
-        const index = songs.findLastIndex(s => s.videoId === videoId);
+        // 2. Wait a bit for the server to process the addition
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        // 3. Try to find the song in the queue with retries
+        let index = -1;
+        for (let i = 0; i < 3; i++) {
+          const songs = await this.getQueue();
+          index = songs.findLastIndex(s => s.videoId === videoId);
+          if (index !== -1) break;
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
 
         if (index !== -1) {
-          // 3. Set index and play (Using the same logic as the queue command)
+          // 4. Set index and play
           await this.setQueueIndex(index);
           await this.resume();
           return true;
