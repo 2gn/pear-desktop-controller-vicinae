@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/vicinaehq/vicinae/refs/heads/main/extra/schemas/extension.json",
+  "name": "pear-desktop-controller",
+  "title": "pear desktop controller",
+  "description": "control pear desktop from vicinae",
+  "categories": [],
+  "license": "MIT",
+  "author": "2gn",
+  "contributors": [],
+  "pastContributors": [],
+  "icon": "extension_icon.png",
+  "commands": [
+    {
+      "name": "search-pear-desktop",
+      "title": "Search pear desktop",
+      "subtitle": "Search music using pear desktop",
+      "description": "Search music using pear desktop (and play them)",
+      "mode": "view"
+    },
+    {
+      "name": "toggle-play-pause",
+      "title": "Toggle Play/Pause",
+      "subtitle": "Pear Desktop",
+      "description": "Toggle between play and pause on Pear Desktop",
+      "mode": "no-view"
+    },
+    {
+      "name": "view-queue",
+      "title": "View Queue",
+      "subtitle": "Pear Desktop",
+      "description": "View the current music queue on Pear Desktop",
+      "mode": "view"
+    },
+    {
+      "name": "next-track",
+      "title": "Next Track",
+      "subtitle": "Pear Desktop",
+      "description": "Skip to the next track on Pear Desktop",
+      "mode": "no-view"
+    },
+    {
+      "name": "previous-track",
+      "title": "Previous Track",
+      "subtitle": "Pear Desktop",
+      "description": "Go back to the previous track on Pear Desktop",
+      "mode": "no-view"
+    }
+  ],
+  "preferences": [],
+  "scripts": {
+    "build": "vici build",
+    "dev": "vici develop",
+    "format": "biome format --write src",
+    "lint": "vici lint"
+  },
+  "dependencies": {
+    "@vicinae/api": "^0.20.12"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "@biomejs/biome": "2.3.2"
+  }
+}
